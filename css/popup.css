@@ -1,0 +1,371 @@
+body
+{
+    margin: 0;
+}
+
+#container
+{ 
+    width: 140px;
+    overflow-x: hidden;
+
+    background: #2e202e;
+}
+
+#container.scrollable
+{ 
+    position: relative;
+    padding: 30px 0;
+}
+
+.scroll_control
+{
+    display: none;
+
+    position: absolute;
+    left: 50%;
+    margin-left: -14px;
+
+    width: 28px;
+    height: 28px;
+    background: 0 0 transparent no-repeat url(../img/sprite.png);
+
+    z-index: 2;
+    opacity: .8;
+    transition: all .2s ease-in-out;
+}
+
+.scroll_control:hover
+{
+    opacity: 1;
+}
+
+.scroll_control.inactive,
+.scroll_control.inactive:hover
+{
+    opacity: .2;
+    cursor: default;
+}
+
+#scroll_up
+{
+    top: 5px;
+    background-position: -2px -39px;
+}
+
+#scroll_down
+{
+    bottom: 5px;
+    background-position: -2px -76px;
+}
+
+.scrollable .scroll_control
+{
+    display: block;
+}
+
+.fade
+{
+    display: none;
+    position: absolute;
+    height: 10px;
+    width: 100%;
+
+    z-index: 1;
+    background: 0 0 transparent repeat-x url(../img/fade.png);
+}
+
+.fade.top
+{
+    top: 30px;
+    background-position: 0 -10px;
+}
+
+.fade.bottom
+{
+    bottom: 30px;
+}
+
+.scrollable .fade
+{
+    display: block;
+}
+
+ul
+{
+    width: 120px;
+    height: 494px;
+    margin: 0;
+    padding: 10px 70px 10px 10px;   /* scrollbar hidden by the right padding */ 
+
+    overflow-x: hidden;
+    overflow-y: scroll;   
+}
+
+.few_items ul
+{
+    height: auto; 
+}
+
+li
+{
+    display: block;
+    width: 118px;
+    height: 60px;
+    margin: 0 0 10px;
+
+    float: left;
+    position: relative;
+
+    border: 1px solid #fff;
+    overflow: hidden;
+
+    background: #130b14;
+    transition: background-color .25s ease-in-out, -webkit-transform .2s ease-in-out;
+}
+
+li:last-child
+{
+    margin-bottom: 0;
+}
+
+li span
+{
+    display: block;
+    width: 100%;
+    height: 100%;
+    
+    background: 0 0 transparent no-repeat url(../img/stations.png);
+    text-indent: -9999px;
+
+    transition: -webkit-transform .25s ease-in-out;
+}
+
+li .listen,
+li .read
+{
+    display: block;
+    position: absolute;
+    top: 18px;
+    
+    background: 0 0 transparent no-repeat url(../img/sprite.png);
+    text-indent: -9999px;
+
+    opacity: .85;
+    transition: opacity .2s ease-in-out, -webkit-transform .25s ease-in-out;
+}
+ 
+li .listen:hover,
+li .read:hover
+{
+    opacity: 1;
+}
+
+li .listen
+{
+    width: 32px;
+    height: 24px;
+    left: 20px;
+
+    -webkit-transform: translateY(-145px);
+}
+
+li .read
+{
+    width: 24px;
+    height: 24px;
+    right: 20px;
+    
+    background-position: -4px -114px;
+
+    -webkit-transform: translateY(145px);
+}
+
+li:nth-child(odd):hover span
+{
+    -webkit-transform: translateX(145px);
+}
+
+li:nth-child(even):hover span
+{
+    -webkit-transform: translateX(-145px);
+}
+
+li:hover .listen,
+li:hover .read
+{
+    -webkit-transform: translateY(0px);
+}
+
+
+
+/* stations specific styling */
+
+li.radio_one:hover
+{
+    background-color: #3f3f3f;
+}
+
+li.radio_one span
+{
+    background-position: 45px 16px;
+}
+
+li.radio_one_extra:hover
+{
+    background-color: #3f3f3f;
+}
+
+li.radio_one_extra span
+{
+    background-position: 45px -45px;
+}
+
+li.radio_two:hover
+{
+    background-color: #eb7a13;
+}
+
+li.radio_two span
+{
+    background-position: 45px -106px;
+}
+
+li.radio_three:hover
+{
+    background-color: #cc202b;
+}
+
+li.radio_three span
+{
+    background-position: 45px -167px;
+}
+
+li.radio_four:hover
+{
+    background-color: #122c5f;
+}
+
+li.radio_four span
+{
+    background-position: 45px -229px;
+}
+
+li.radio_four_extra:hover
+{
+    background-color: #833e95;
+}
+
+li.radio_four_extra span
+{
+    background-position: 45px -289px;
+}
+
+li.radio_five:hover
+{
+    background-color: #15a2c5;
+}
+
+li.radio_five span
+{
+    background-position: 45px -350px;
+}
+
+li.radio_five_sports:hover
+{
+    background-color: #5b8f22;
+}
+
+li.radio_five_sports span
+{
+    background-position: 45px -411px;
+}
+
+li.radio_six_music:hover
+{
+    background-color: #447f80;
+}
+
+li.radio_six_music span
+{
+    background-position: 45px -472px;
+}
+
+li.asian_network:hover
+{
+    background-color: #d11473;
+}
+
+li.asian_network span
+{
+    background-position: 45px -533px;
+}
+
+li.world_service:hover
+{
+    background-color: #bf301a;
+}
+
+li.world_service span
+{
+    background-position: 39px -892px;
+}
+
+li.radio_scotland:hover
+{
+    background-color: #5c2006;
+}
+
+li.radio_scotland span
+{
+    background-position: 45px -594px;
+}
+
+li.radio_nan_gaidheal:hover
+{
+    background-color: #091047;
+}
+
+li.radio_nan_gaidheal span
+{
+    background-position: 33px -944px;
+}
+
+li.radio_ulster:hover
+{
+    background-color: #afbd23;
+}
+
+li.radio_ulster span
+{
+    background-position: 45px -716px;
+}
+
+li.radio_foyle:hover
+{
+    background-color: #afbd23;
+}
+
+li.radio_foyle span
+{
+    background-position: 45px -655px;
+}
+
+li.radio_wales:hover
+{
+    background-color: #c60c30;
+}
+
+li.radio_wales span
+{
+    background-position: 45px -775px;
+}
+
+li.radio_cymru:hover
+{
+    background-color: #1b95c2;
+}
+
+li.radio_cymru span
+{
+    background-position: 45px -828px;
+}
