@@ -2,23 +2,29 @@ var popup = {
 
     _params: {
         stationsCount: 0,
-        itemHeight: 72
+        itemHeight: 72,
+        availableStations: []
     },
 
     /**
      * Checks whether scroll or popup resize is required based on the number of items  
      * and calls the corresponding functions
      */
-    initialize: function(availableStations){
+    initialize: function(stations){
 
         var content = '';
 
-        for (var i = 0, l = availableStations.length; i < l; i++) {
-            if (availableStations[i].active) {
-                content += this.itemConstructor(availableStations[i]);
-                this._params.stationsCount++;
+        // just leave active stations in an array and generate content based on them
+        for (var i = stations.length - 1; i >= 0; i--) {
+            if (stations[i].active) {
+                content = this.handleActiveStation(stations[i]) + content;
+            } else {
+                stations.splice(i, 1);
             }
-        }     
+        }
+
+        if (this.isSpecialCase())
+            return;
 
         this.insertContent(content); 
 
@@ -28,6 +34,18 @@ var popup = {
 
     },
 
+    handleActiveStation: function(station){
+
+        this._params.stationsCount++;
+        this._params.availableStations.unshift(station);
+
+        return this.itemConstructor(station);
+
+    },
+
+    /**
+     * Builds the html code for the item based on its data
+     */
     itemConstructor: function(params){
 
         var title = params.title, 
@@ -46,8 +64,60 @@ var popup = {
 
     },
 
+    /**
+     * If one or none items are to be shown, 
+     * badge click has to be handled in a different way
+     */
+    isSpecialCase: function(){
+        
+        var isEmpty = this._params.stationsCount === 0,
+            isOneItem = this._params.stationsCount === 1;
+
+        isEmpty && this.handleEmptyList();
+        isOneItem && this.openRightAway();
+
+        return isEmpty || isOneItem;
+
+    },
+
+    /**
+     * If no items are to be displayed in a popup, it'll show the corresponding notification
+     */
+    handleEmptyList: function(){
+        
+        var content = [
+                '<li class="message">',
+                'please pick some stations to show here via the',
+                '<a href="options.html" target="_blank">options page</a>',
+                '</li>'
+            ].join('\n');
+
+        this
+            .insertContent(content)
+            .adjustPopupHeight();
+
+    },
+
+    openRightAway: function(){
+        
+        // todo чё с params??
+        var windowParams = "toolbar=yes, scrollbars=yes, resizable=yes, top=500, left=500, width=400, height=400",
+            url = 'http://www.bbc.co.uk/radio/player/' + this._params.availableStations[0].listenUrl;
+
+        window.open(url, windowParams);
+
+    },
+
+    /**
+     * Inserts content 
+     * @param {String} html
+     */
     insertContent: function(html){
+        
         document.getElementById('stations_wrapper').innerHTML = html;
+        
+        return this;
+
     },
 
     /**
@@ -70,9 +140,6 @@ var popup = {
 
     },
 
-    /**
-     * Finding blocks used for scroll
-     */
     findBlocks: function(){
 
         this.upControl = document.getElementById('scroll_down');
@@ -110,7 +177,7 @@ var popup = {
     },   
 
     /**
-     * makes controls inactive/active depending on the scroll position
+     * Makes controls inactive/active depending on the scroll position
      */
     fadeArrows: function(scrollTop){
 
@@ -130,8 +197,7 @@ var popup = {
     },
 
     /**
-     * performs the scroll
-     *
+     * Performs the scroll
      * @param {String} ['up', 'down'] direction
      */
     scroll: function(direction){
