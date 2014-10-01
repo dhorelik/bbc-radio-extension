@@ -207,7 +207,7 @@ var popup = {
 
     /**
      * Performs the scroll
-     * @param {String} ['up', 'down'] direction
+     * @param {String} direction ['up', 'down']
      */
     scroll: function(direction){
 
