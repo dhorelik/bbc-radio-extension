@@ -1,11 +1,18 @@
 body
 {
-    background: #404040;
+    padding: 20px 0 0;
     
-    color: #fff;
+    background: #fff;
+    
+    color: #3c3c3c;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
     text-align: center;
+}
+
+p
+{
+    margin: 5px 0;
 }
 
 #stations_wrapper
@@ -15,34 +22,32 @@ body
 
     display: flex;
 
-    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
     justify-content: space-around;
 }
 
 li
 {
-    width: 20%;
-
     border-top: 1px solid #343434;
 
     margin: 0 20px 20px;
-    padding: 20px 0;
+    padding: 10px 14px 7px 14px;
 
     list-style: none;
 
-    background: #404040;
+    background: #fff;
     transition: all .4s;
 }
 
 li:hover
 {
-    background: #444343;
+    background: #f6f6f6;
     border-color: #f54997;
 }
 
 li.highlighted
 {
-    background: #323232;
+    background: #dadada;
 }
 
 li input,
@@ -71,11 +76,10 @@ li input
     position: relative;
 
     border-radius: 3px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, .05), inset 0px -15px 10px -12px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .05), inset 0 -15px 10px -12px rgba(0, 0, 0, .05);
 
     -webkit-appearance: none;
     background-color: #fafafa;
-    
 }
 
 li input:active, li input:checked:active 

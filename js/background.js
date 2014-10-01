@@ -1,7 +1,6 @@
 chrome.runtime.onInstalled.addListener(function(details){
 
-    // TODO убрать update
-    if (details.reason === 'chrome_update' || details.reason === 'update')
+    if (details.reason === 'chrome_update')
         return;
 
     var stations = [

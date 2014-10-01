@@ -1,8 +1,5 @@
 var options = {
 
-    /**
-     * TODO везде комменты
-     */
     initialize: function(){
 
         var content = '';
@@ -17,6 +14,9 @@ var options = {
 
     },
 
+    /**
+     * Builds the html code for the item based on its data
+     */
     itemConstructor: function(params){
 
         var title = params.title, 
@@ -42,16 +42,22 @@ var options = {
     
     },
 
+    /**
+     * Sets event listeners for checkboxes
+     */
     bindCheck: function(){
 
         var checkboxes = document.getElementsByTagName('input');
 
         for (var i = 0, l = checkboxes.length; i < l; i++){
-            checkboxes[i].addEventListener('change', this.updateActiveList, false);
+            checkboxes[i].addEventListener('change', this.updateActiveList.bind(this), false);
         }
 
     },
 
+    /**
+     * Updates the list of active station in localStorage
+     */
     updateActiveList: function(e) {
 
         var target = e.srcElement,
@@ -59,19 +65,21 @@ var options = {
             status = target.checked;
                     
         for (var i = 0, l = options._stations.length; i < l; i++) {
-            if (options._stations[i].identifier === id) {
-                options._stations[i].active = status;
+            if (this._stations[i].identifier === id) {
+                this._stations[i].active = status;
                 break;    
             }
         }
 
-// todo хрень с this
-        options.highlightItem(status, target.parentNode);
+        this.highlightItem(status, target.parentNode);
 
-        chrome.storage.local.set({'stations': options._stations});
+        chrome.storage.local.set({'stations': this._stations});
 
     },
 
+    /**
+     * Toggles class name responsible for selected items styling
+     */
     highlightItem: function(status, parentNode) {
 
         status

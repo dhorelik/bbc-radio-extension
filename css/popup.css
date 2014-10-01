@@ -71,18 +71,18 @@ body
     width: 100%;
 
     z-index: 1;
-    background: 0 0 transparent repeat-x url(../img/fade.png);
 }
 
 .fade.top
 {
     top: 30px;
-    background-position: 0 -10px;
+    background: linear-gradient(to bottom, rgba(46,32,46,1) 0%,rgba(46,32,46,0) 100%);
 }
 
 .fade.bottom
 {
     bottom: 30px;
+    background: linear-gradient(to bottom, rgba(46,32,46,0) 0%,rgba(46,32,46,1) 100%);
 }
 
 .scrollable .fade
@@ -120,7 +120,7 @@ li
     overflow: hidden;
 
     background: #130b14;
-    transition: background-color .25s ease-in-out, -webkit-transform .2s ease-in-out;
+    transition: background-color .25s ease-in-out, transform .2s ease-in-out;
 }
 
 li:last-child
@@ -137,7 +137,7 @@ li span
     background: 0 0 transparent no-repeat url(../img/stations.png);
     text-indent: -9999px;
 
-    transition: -webkit-transform .25s ease-in-out;
+    transition: transform .25s ease-in-out;
 }
 
 li .listen,
@@ -151,7 +151,7 @@ li .read
     text-indent: -9999px;
 
     opacity: .85;
-    transition: opacity .2s ease-in-out, -webkit-transform .25s ease-in-out;
+    transition: opacity .2s ease-in-out, transform .25s ease-in-out;
 }
  
 li .listen:hover,
@@ -166,7 +166,7 @@ li .listen
     height: 24px;
     left: 20px;
 
-    -webkit-transform: translateY(-145px);
+    transform: translateY(-145px);
 }
 
 li .read
@@ -177,23 +177,23 @@ li .read
     
     background-position: -4px -114px;
 
-    -webkit-transform: translateY(145px);
+    transform: translateY(145px);
 }
 
 li:nth-child(odd):hover span
 {
-    -webkit-transform: translateX(145px);
+    transform: translateX(145px);
 }
 
 li:nth-child(even):hover span
 {
-    -webkit-transform: translateX(-145px);
+    transform: translateX(-145px);
 }
 
 li:hover .listen,
 li:hover .read
 {
-    -webkit-transform: translateY(0px);
+    transform: translateY(0px);
 }
 
 .message

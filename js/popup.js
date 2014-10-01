@@ -32,6 +32,10 @@ var popup = {
             ? this.adjustPopupHeight()
             : this.initScroll();
 
+        this
+            .findBlocks()
+            .bindEvents();
+
     },
 
     handleActiveStation: function(station){
@@ -55,7 +59,7 @@ var popup = {
             item = [
                 '<li class="' + identifier + '">',
                 '<span>' + title + '</span>',
-                '<a href="http://www.bbc.co.uk/radio/player/' + listenUrl + '" class="listen" target="_blank">Listen live</a>',
+                '<a href="http://www.bbc.co.uk/radio/player/' + listenUrl + '" class="listen">Listen live</a>',
                 '<a href="http://www.bbc.co.uk/' + openUrl + '" class="read" target="_blank">Check page</a>',
                 '</li>'
             ].join('\n');
@@ -98,13 +102,14 @@ var popup = {
 
     },
 
+    /**
+     * If one station is to be displayed, its player will open right away instead
+     */
     openRightAway: function(){
-        
-        // todo чё с params??
-        var windowParams = "toolbar=yes, scrollbars=yes, resizable=yes, top=500, left=500, width=400, height=400",
-            url = 'http://www.bbc.co.uk/radio/player/' + this._params.availableStations[0].listenUrl;
 
-        window.open(url, windowParams);
+        var url = 'http://www.bbc.co.uk/radio/player/' + this._params.availableStations[0].listenUrl;
+
+        this.openStation(url);
 
     },
 
@@ -131,13 +136,7 @@ var popup = {
      * Shows the scroll arrows
      */
     initScroll: function(){
-
         document.getElementById('container').className += ' scrollable';
-
-        this
-            .findBlocks()
-            .bindEvents();
-
     },
 
     findBlocks: function(){
@@ -147,23 +146,29 @@ var popup = {
         
         this.container = document.getElementById('stations_wrapper');
 
+        this.listenLink = document.getElementsByClassName('listen');
+
         return this;
 
     },
 
     bindEvents: function(){
 
-        this.upControl.addEventListener('click', this._onArrowClick, false);
-        this.downControl.addEventListener('click', this._onArrowClick, false);
+        this.upControl.addEventListener('click', this._onArrowClick.bind(this), false);
+        this.downControl.addEventListener('click', this._onArrowClick.bind(this), false);
 
-        this.container.addEventListener('scroll', this._onScroll, false);
+        this.container.addEventListener('scroll', this._onScroll.bind(this), false);
+
+        for(var i = 0; i < this.listenLink.length; i++){
+            this.listenLink[i].addEventListener('click', this._onListenClick.bind(this), false);
+        }
 
         document.addEventListener('keydown', keyrouter.bindKeys, false);
 
     },
 
     _onScroll: function(){
-        popup.fadeArrows(this.scrollTop);
+        this.fadeArrows(this.scrollTop);
     },
 
     _onArrowClick: function(){
@@ -172,9 +177,13 @@ var popup = {
             ? 'up'
             : 'down';
 
-        popup.scroll(direction);
+        this.scroll(direction);
 
-    },   
+    },
+
+    _onListenClick: function(e){
+        this.openStation(e.target.href);
+    },
 
     /**
      * Makes controls inactive/active depending on the scroll position
@@ -207,6 +216,30 @@ var popup = {
             : this._params.itemHeight;
 
         this.container.scrollTop += offset; 
+
+    },
+
+    /**
+     * Opens iPlayer in new window
+     * @param {String} url
+     */
+    openStation: function(url) {
+
+        var playerWidth = 380,
+            playerHeight = 665,
+            // new window size should include browser frames, otherwise the content won't fit
+            browserFrameWidth = 18,
+            browserFrameHeight = 78;
+
+        chrome.windows.create({
+            url: url,
+            type: 'popup',
+            width: playerWidth + browserFrameWidth,
+            height: playerHeight + browserFrameHeight
+        });
+
+        //closes the stations list
+        window.close();
 
     }
 

@@ -11,9 +11,9 @@
         "128": "img/icons/icon_128.png" 
     },
 
-    "developer": { 
+    "developer": {
         "name": "Dmitry Gorelik",
-        "url": "https://github.com/dhorelik" 
+        "url": "https://github.com/dhorelik"
     },
 
     "browser_action": {
