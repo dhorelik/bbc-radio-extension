@@ -154,10 +154,10 @@ var popup = {
 
     bindEvents: function(){
 
-        this.upControl.addEventListener('click', this._onArrowClick.bind(this), false);
-        this.downControl.addEventListener('click', this._onArrowClick.bind(this), false);
+        this.upControl.addEventListener('click', this._onArrowClick, false);
+        this.downControl.addEventListener('click', this._onArrowClick, false);
 
-        this.container.addEventListener('scroll', this._onScroll.bind(this), false);
+        this.container.addEventListener('scroll', this._onScroll, false);
 
         for(var i = 0; i < this.listenLink.length; i++){
             this.listenLink[i].addEventListener('click', this._onListenClick.bind(this), false);
@@ -168,7 +168,7 @@ var popup = {
     },
 
     _onScroll: function(){
-        this.fadeArrows(this.scrollTop);
+        popup.fadeArrows(this.scrollTop);
     },
 
     _onArrowClick: function(){
@@ -177,7 +177,7 @@ var popup = {
             ? 'up'
             : 'down';
 
-        this.scroll(direction);
+        popup.scroll(direction);
 
     },
 
